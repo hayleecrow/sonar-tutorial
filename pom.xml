@@ -28,10 +28,14 @@
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 
         <!-- Dependency versions used below -->
-        <jacoco.version>0.8.6</jacoco.version>
+        <jacoco.version>0.8.12</jacoco.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
-        <sonar.maven.version>3.7.0.1746</sonar.maven.version>
+        <sonar.maven.version>5.0.0.4389</sonar.maven.version>
+
+        <sonar.organization>hayleecrow</sonar.organization>
+        <sonar.projectKey>hayleecrow_sonar-tutorial</sonar.projectKey>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -59,20 +63,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <!-- Runs SonarQube analysis automatically when mvn package or mvn install is called -->
             <plugin>

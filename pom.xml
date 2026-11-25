@@ -22,7 +22,7 @@
         <!-- Tells Sonar to exclude these directories for analysis -->
         <sonar.exclusions>target/**/*</sonar.exclusions>
         <!-- We are not using source control, so SCM is disabled -->
-        <sonar.scm.disabled>true</sonar.scm.disabled>
+        <sonar.scm.disabled>false</sonar.scm.disabled>
         <!-- Configures code coverage analysis. We are using Jacoco -->
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -63,21 +63,26 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Runs SonarQube analysis automatically when mvn package or mvn install is called -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>${sonar.maven.version}</version>
-                <executions>
-                    <execution>
-                        <id>sonar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>sonar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

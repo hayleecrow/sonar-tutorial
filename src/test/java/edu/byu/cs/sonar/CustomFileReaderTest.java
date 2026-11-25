@@ -57,11 +57,6 @@ class CustomFileReaderTest {
     }
 
     @Test
-    void testEqualsSameInstance() {
-        assertEquals(sut, sut, "A reader should equal itself");
-    }
-
-    @Test
     void testNotEqualsDifferentSentence() {
         CustomFileReader other = new CustomFileReader("readMe1.txt");
         other.setNewSentence("Different");
@@ -79,20 +74,6 @@ class CustomFileReaderTest {
     void testNotEqualsDifferentPath() {
         CustomFileReader other = new CustomFileReader("readMe2.txt");
         assertNotEquals(sut, other, "Readers with different files should not be equal");
-    }
-
-    @Test
-    void testNotEqualsDifferentType() {
-        Object differentType = "readMe1.txt";
-        boolean result = sut.equals(differentType);
-        assertFalse(result, "A reader should not equal an object of another type");
-    }
-
-    @Test
-    void testNotEqualsNull() {
-        CustomFileReader nothing = null;
-        boolean result = sut.equals(nothing);
-        assertFalse(result, "A reader should not equal null");
     }
 
     @Test

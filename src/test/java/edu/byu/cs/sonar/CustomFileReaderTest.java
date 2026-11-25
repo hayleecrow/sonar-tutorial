@@ -42,4 +42,70 @@ class CustomFileReaderTest {
         sut.setNewSentence(betterSentence);
         assertEquals(betterSentence, sut.getNewSentence());
     }
+
+    @Test
+    void testToString() throws FileNotFoundException {
+        sut.setNewSentence("Hello");
+        sut.howManyWordsInFile();
+        assertEquals("Hello 4", sut.toString(), "toString should show the sentence and word count");
+    }
+
+    @Test
+    void testEqualsSameValues() {
+        CustomFileReader other = new CustomFileReader("readMe1.txt");
+        assertEquals(sut, other, "Readers with the same file, sentence, and count should be equal");
+    }
+
+    @Test
+    void testEqualsSameInstance() {
+        assertEquals(sut, sut, "A reader should equal itself");
+    }
+
+    @Test
+    void testNotEqualsDifferentSentence() {
+        CustomFileReader other = new CustomFileReader("readMe1.txt");
+        other.setNewSentence("Different");
+        assertNotEquals(sut, other, "Readers with different sentences should not be equal");
+    }
+
+    @Test
+    void testNotEqualsDifferentCount() throws FileNotFoundException {
+        CustomFileReader other = new CustomFileReader("readMe1.txt");
+        other.howManyWordsInFile();
+        assertNotEquals(sut, other, "Readers with different counts should not be equal");
+    }
+
+    @Test
+    void testNotEqualsDifferentPath() {
+        CustomFileReader other = new CustomFileReader("readMe2.txt");
+        assertNotEquals(sut, other, "Readers with different files should not be equal");
+    }
+
+    @Test
+    void testNotEqualsDifferentType() {
+        Object differentType = "readMe1.txt";
+        boolean result = sut.equals(differentType);
+        assertFalse(result, "A reader should not equal an object of another type");
+    }
+
+    @Test
+    void testNotEqualsNull() {
+        CustomFileReader nothing = null;
+        boolean result = sut.equals(nothing);
+        assertFalse(result, "A reader should not equal null");
+    }
+
+    @Test
+    void testHashCodeEqualForEqualReaders() {
+        CustomFileReader other = new CustomFileReader("readMe1.txt");
+        sut.setNewSentence("Hello");
+        other.setNewSentence("Hello");
+        assertEquals(sut.hashCode(), other.hashCode(), "Equal readers should have equal hash codes");
+    }
+
+    @Test
+    void testHashCodeDiffersForDifferentReaders() {
+        CustomFileReader other = new CustomFileReader("readMe2.txt");
+        assertNotEquals(sut.hashCode(), other.hashCode(), "Different readers should usually have different hash codes");
+    }
 }
